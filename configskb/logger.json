@@ -1,0 +1,16 @@
+{
+    "encoder": "console",
+    "path":"../../bin/logs/",
+    "directory": "lark",
+    "show_line":true,
+    "encode_level":"CapitalColor",
+    "stacktrace_key":"stacktrace",
+    "log_stdout":true,
+    "caller_type":0,
+    "segment":{
+        "max_size":1000,
+        "max_age":7,
+        "max_backups":500,
+        "compress":false
+    }
+}

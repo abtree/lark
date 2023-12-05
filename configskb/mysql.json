@@ -1,0 +1,10 @@
+{
+    "address": "192.168.0.174:30306",
+    "username": "root",
+    "password":"lark2022",
+    "db":"lark_user",
+    "max_open_conn": 10,
+    "max_idle_conn": 20,
+    "conn_lifetime": 120000,
+    "charset": "utf8"
+}

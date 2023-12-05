@@ -1,0 +1,30 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+message ErrorMsg{
+    uint32 code = 1;
+    string msg = 2;
+}
+
+message MsgStr{
+    string val = 1;
+}
+
+enum EItemType{
+    EIT_UnUse = 0; 
+    EIT_Good = 1;   //道具
+}
+
+message CPrizeItem{
+    EItemType MType = 1;    //类型
+    string Oriname = 2; //原始名
+    sint32 Count = 3;   //数量
+    sint32 Exinfo = 4;  //额外参数
+    sint32 inner = 5;   //内部参数
+}
+
+message WebProto{
+    sint64 guid = 1;
+    bytes data = 2;
+}

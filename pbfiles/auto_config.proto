@@ -1,0 +1,46 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+//---------------说明---------------------------
+//自动生成的pb 配置文件
+//----------------------------------------------
+	
+message Jgiftpack{
+	 repeated sint32 extroPos = 1;
+	 repeated sint32 mix = 2;
+	 string chars = 3;
+	 string key = 4;
+	 repeated sint32 basePos = 5;
+} 
+//Websocket
+message WebSocketCfg{
+	uint32 WriteWait = 1;
+	uint32 PongWait = 2;
+	uint32 PingWait = 3;
+	uint32 ReadBufferSize = 4;
+	uint32 WriteBufferSize = 5;
+	uint32 ReadMaxBufferSize = 6;
+	uint32 ChanRegisterSize = 7;
+	uint32 ChanUnregisterSize = 8;
+	uint32 ChanReadSize = 9;
+	uint32 ChanWriteSize = 10;
+	uint32 RoutineRead = 11;
+	uint32 MaxConn = 12;
+	uint32 RWDeadLine = 13;
+}
+
+message MsgConfigs {
+	map<string,bytes> unhandle = 1;
+	
+	Jgiftpack Giftpack = 2;
+	WebSocketCfg Websocket = 3;
+}
+message MsgYYactConfigs {
+	map<string,bytes> unhandle = 1;
+}
+message MsgAllConfigs{
+	MsgConfigs Configs = 1;
+	MsgYYactConfigs Yyacts = 2;
+}
+	

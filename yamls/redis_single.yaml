@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/redis"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-cluster
+data:
+  redis.conf: |
+    bind 0.0.0.0
+    port 6379
+    cluster-announce-bus-port 16379
+    cluster-enabled no
+    appendonly yes
+    cluster-node-timeout 5000
+    dir /data
+    cluster-config-file /data/nodes.conf
+    requirepass lark2022
+    masterauth lark2022
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lark-redis
+spec:
+  selector:
+    matchLabels:
+      app: lark-redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: lark-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.0.8
+        command: ["redis-server", "/config/redis.conf"]
+        ports:
+        - name: redis
+          containerPort: 6379
+          protocol: TCP
+        - name: election
+          containerPort: 16379
+          protocol: TCP
+        volumeMounts:
+        - name: redis-conf
+          mountPath: /config
+        - name: redis-pv-claim
+          mountPath: /data
+      volumes:
+      - name: redis-conf
+        configMap:
+          name: redis-cluster
+          items:
+          - key: redis.conf
+            path: redis.conf
+      - name: redis-pv-claim
+        persistentVolumeClaim:
+          claimName: redis-pv-claim
+############################################
+# 登录到其中一个Redis节点
+# kubectl exec -ti redis-cluster-0 -- /bin/bash
+# 为6个节点执行初始化命令，当选项--cluster-replicas指定为1时，表示为每个Master节点分配一个Slave节点，这样集群中刚好3个Master节点和3个Slave节点
+# redis-cli -a lark2022 --cluster create  172.17.125.58:6379  172.17.125.59:6379  172.17.125.60:6379  172.17.125.61:6379  172.17.125.62:6379  172.17.125.63:6379 --cluster-replicas 1
+# redis-cli -a lark2022 --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ')
+############################################
+---
+# 创建外部访问接口
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster
+  name: lark-redis-client
+  namespace: default
+spec:
+  ports:
+  - name: lark-redis-6379
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+    nodePort: 30637
+  selector:
+    app: lark-redis
+  sessionAffinity: None
+  type: NodePort

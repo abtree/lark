@@ -1,0 +1,9 @@
+{
+    "endpoints": ["192.168.0.174:30379"],
+    "username": "",
+    "password": "",
+    "schema": "lark",
+    "read_timeout": 5000,
+    "write_timeout": 5000,
+    "dial_timeout": 5000
+}

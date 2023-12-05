@@ -1,0 +1,9 @@
+{
+    "address": "192.168.0.16:30017",
+    "username": "",
+    "password":"",
+    "db":"lark",
+    "direct":false,
+    "timeout":5000,
+    "max_pool_size":20
+}

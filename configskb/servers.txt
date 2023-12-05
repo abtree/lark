@@ -1,0 +1,7 @@
+	名称	index	serverid	端口		是否启用证书	证书地址key	证书地址pem	证书验证名		
+^CfgServers	uint32:Id	string:Name	uint32:ServerId	uint32:Port	uint32:HttpPort	string:DBName	bool:Cert	string:CertKey	string:CertPem	string:CertName	string:Host
+#	1	lark_api_gateway	1	8002	8001	0	0	0	0	0	
+#	2	lark_config	1	6100	0	0	0	0	0	0	
+#	3	lark_auth	1	6200	0	0	0	0	0	0	
+#	4	lark_giftpack	1	6300	0	0	0	0	0	0	
+#	5	lark_getid	1	6400	0	0	0	0	0	0	

@@ -1,0 +1,8 @@
+{
+    "address":"localhost:9092",
+    "partition":0,
+    "readTimeOut":3,
+    "writeTimeOut":3,
+    "writeRetry":3,
+    "allowAutoTopic": true
+}

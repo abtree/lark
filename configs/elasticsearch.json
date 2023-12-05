@@ -1,0 +1,7 @@
+{
+    "address":["http://192.168.0.174:30920"],
+    "username":"",
+    "password":"",
+    "enable_cert":false,
+    "ca_cert":"./configs/tls/elasticsearch/ca.crt"
+}

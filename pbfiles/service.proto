@@ -1,0 +1,19 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+message SvcReq{
+    uint32 ID = 1;
+    bytes Data = 2;
+}
+
+message SvcResp{
+    uint32 ID = 1;
+    sint32 Code = 2;
+    string Msg = 3;
+    bytes Data = 4;
+}
+
+service SrvService {
+  rpc SrvSvc(SvcReq) returns(SvcResp);
+}

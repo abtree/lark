@@ -1,0 +1,12 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+enum APIMsgId{
+    None = 0;
+    BackToWeb = 1;
+    GetAllCfg = 2;
+    EGiftPack = 3;
+    EGetid = 4;
+    EAuth = 5;
+}

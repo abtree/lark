@@ -1,0 +1,48 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+enum ERankListType{
+	ERLT_Union = 0;	//公会排行
+	ERLT_Level = 1;//等级排行
+	ERLT_Hero = 2;//英雄排行
+	ERLT_LostTower = 3;//奈乐宫排行
+	ERLT_CJ = 4;//成就排行
+	ERLT_UnionBoss = 5;//公会战排行
+	ERLT_Hero_World = 6;	//单服英雄
+	ERLT_Hero_Bak = 7;		//上期全服英雄排行
+	ERLT_Hero_World_Bak = 8;//上期单服英雄排行
+	ERLT_LostTower_Bak = 9;//上期奈乐宫排行
+	ERLT_UnionTask = 10;	//公会战备战活动排行榜
+}
+
+//用于排行的数据
+message MsgRankListItem{
+	uint64 Id = 1;			//ID 用于索引 玩家相关排行榜即为玩家GUID
+	int32 Score = 2;		//用于排行的数据
+	string Name = 3;		//名称
+	uint32 Level = 4;		//等级
+	uint32 Icon = 5;		//头像
+	string UnionName = 6;	//工会名称
+	int64 UpdateTime = 7;	//更新时间
+	sint32 YesterdayRank = 8;//昨日排行
+	int64 SubScore = 9;		//子积分，用于一个积分不够用的情况（如工会）
+	
+	//.... 下面为具体排行榜的独有数据
+	uint32 HeadTitle = 14; 	//称号
+	uint32 HeadFrame = 15;	//头像框
+	repeated uint64 ActivePlayers = 16;//激活的玩家
+}
+
+
+message MsgRankListData{
+	ERankListType Type = 1;//类型
+	int32 ChildType = 2;//子类型
+	int32 GroupID = 3;//分组ID
+	repeated MsgRankListItem Rank = 4;//
+	map<uint64, sint32> Index = 5;
+	map<uint64, bool> Del = 6;
+	int64 NewDayTime = 7;//跨天时间
+	map<uint64, sint32> YesterdayIndex = 8;//昨日排行结果
+	string Key = 9;
+}

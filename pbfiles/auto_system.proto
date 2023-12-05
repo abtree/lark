@@ -1,0 +1,122 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+//---------------说明---------------------------
+//自动生成的pb 配置文件
+//----------------------------------------------
+	
+message Jelasticsearch{
+	 bool enable_cert = 1;
+	 string ca_cert = 2;
+	 repeated string address = 3;
+	 string username = 4;
+	 string password = 5;
+} 
+message Jetcd{
+	 repeated string endpoints = 1;
+	 string username = 2;
+	 string password = 3;
+	 string schema = 4;
+	 sint32 read_timeout = 5;
+	 sint32 write_timeout = 6;
+	 sint32 dial_timeout = 7;
+} 
+message Jgrpc{
+	 sint32 timeout = 1;
+	 sint32 connection_limit = 2;
+	 sint32 streams_limit = 3;
+	 sint32 max_recv_msg_size = 4;
+	 sint32 max_connection_idle = 5;
+	 sint32 max_connection_age = 6;
+	 sint32 max_connection_age_grace = 7;
+	 sint32 time = 8;
+} 
+message Jjaeger{
+	 bool log_spans = 1;
+	 sint32 buffer_flush_interval = 2;
+	 sint32 max_packet_size = 3;
+	 bool enable = 4;
+	 string host_port = 5;
+	 string sampler_type = 6;
+	 sint32 param = 7;
+} 
+message Jkafka{
+	 sint32 partition = 1;
+	 sint32 readTimeOut = 2;
+	 sint32 writeTimeOut = 3;
+	 sint32 writeRetry = 4;
+	 bool allowAutoTopic = 5;
+	 string address = 6;
+} 
+message Jlogger{
+	 bool show_line = 1;
+	 string encode_level = 2;
+	 string stacktrace_key = 3;
+	 bool log_stdout = 4;
+	 sint32 caller_type = 5;
+message Jsegment{
+	 sint32 max_size = 1;
+	 sint32 max_age = 2;
+	 sint32 max_backups = 3;
+	 bool compress = 4;
+} 
+	 Jsegment segment = 6;
+	 string path = 7;
+	 string directory = 8;
+	 string encoder = 9;
+} 
+message Jmongo{
+	 string address = 1;
+	 string username = 2;
+	 string password = 3;
+	 string db = 4;
+	 bool direct = 5;
+	 sint32 timeout = 6;
+	 sint32 max_pool_size = 7;
+} 
+message Jmysql{
+	 sint32 max_idle_conn = 1;
+	 sint32 conn_lifetime = 2;
+	 string charset = 3;
+	 string address = 4;
+	 string username = 5;
+	 string password = 6;
+	 string db = 7;
+	 sint32 max_open_conn = 8;
+} 
+message Jredis{
+	 string prefix = 1;
+	 repeated string address = 2;
+	 sint32 db = 3;
+	 string password = 4;
+} 
+//Servers
+message CfgServers{
+	uint32 Id = 1;
+	string Name = 2;
+	uint32 ServerId = 3;
+	uint32 Port = 4;
+	uint32 HttpPort = 5;
+	string DBName = 6;
+	bool Cert = 7;
+	string CertKey = 8;
+	string CertPem = 9;
+	string CertName = 10;
+	string Host = 11;
+}
+
+message MsgSysConfigs {
+	map<string,bytes> unhandle = 1;
+	
+	Jelasticsearch Elasticsearch = 2;
+	Jetcd Etcd = 3;
+	Jgrpc Grpc = 4;
+	Jjaeger Jaeger = 5;
+	Jkafka Kafka = 6;
+	Jlogger Logger = 7;
+	Jmongo Mongo = 8;
+	Jmysql Mysql = 9;
+	Jredis Redis = 10;
+	map<uint32, CfgServers> Servers = 11;
+}

@@ -1,0 +1,26 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+message UserInfo {
+    uint64 id = 1;      //分配的id
+    string name = 2;    //名称（自己取的）
+    string account = 3; //账号（登录用）
+    uint32 platform = 4;    //平台
+    string password = 5;    //密码
+    uint64 phone = 6;   //绑定手机号(可用于登录)
+    string imcode = 7;  //绑定的其他账号(邮箱，qq，微信等, 可用于登录)
+    repeated uint32 privilage = 8;  //用户权限
+}
+
+message AuthProto{
+    enum Operator{
+        Register = 0;   //注册
+        Login = 1;      //登录
+        LoginToken = 2; //token登录
+    }
+    Operator op = 1;    //操作
+    UserInfo user = 2;  //用户信息
+    string token = 3;   //Token（用于身份验证）
+    sint32 expire = 4;  //token的过期时间
+}

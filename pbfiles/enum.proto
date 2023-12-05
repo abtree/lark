@@ -1,0 +1,28 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+enum ServerError {
+    NilError = 0;
+    ParamError = 1;
+    GrpcNotRegisterHandle = 2;
+    GrpcHandleMsgError = 3;
+    GrpcPackMsgError = 4;
+    GinPackMsgError = 5;
+    GinReadParamError = 6;
+    GinServerError = 7;
+    WsClientOffline = 8;  //该用户离线
+    WsHubMaxConn  = 9;    //hub人满
+    WsVerifyError = 10;    //账号信息验证失败
+    WsUpgraderFailed = 11; //协议升级失败
+}
+
+enum ServerType {
+    UnUse = 0;
+    ApiHttp = 1;
+    Config = 2;
+    Auth = 3;
+    Giftpack = 4;
+    GetId = 5;
+    WebSocket = 6;
+}

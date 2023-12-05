@@ -1,0 +1,37 @@
+syntax ="proto3";
+package pb;
+option go_package = "../pb;pb";
+
+import "base.proto";
+
+message GiftPackSlice{
+    sint32 start = 1;   //包含
+    sint32 end = 2; //不包含
+}
+message GiftPack{
+    uint32 id = 1;
+    repeated GiftPackSlice code = 2;
+    repeated CPrizeItem prizes = 3; //奖励
+    string prefix = 4; //前缀（共享码）
+    bool isShare = 5;   //是否是共享码
+    uint32 count = 6;   //数量
+    //其他限制条件
+}
+
+message GiftPackProto{
+    enum Operator{
+        Create = 0; //创建
+        Update = 1; //更新
+        GetAll = 2; //获取全部
+    }
+    Operator op = 1;
+    GiftPack giftpack = 2;
+}
+
+message GetidProto{
+    uint32 id = 1;
+}
+
+message WebSocketProto{
+    uint32 sender = 1;  //发送者
+}
